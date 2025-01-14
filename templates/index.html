@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Multi-Agent Orchestration System for AI-powered analysis">
+    <title>Multi-Agent Orchestration System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <header class="text-center mb-5">
+            <h1>Multi-Agent Orchestration System</h1>
+            <p class="subtitle">Analyze complex topics using multiple AI expert models</p>
+        </header>
+
+        <div class="example-queries mb-4">
+            <h2 class="h6 mb-3">Example Queries:</h2>
+            <div class="example-buttons">
+                <button type="button" class="btn btn-example" data-query="Analyze the impact of AI on healthcare">
+                    AI in Healthcare
+                </button>
+                <button type="button" class="btn btn-example" data-query="Compare different renewable energy sources">
+                    Renewable Energy
+                </button>
+                <button type="button" class="btn btn-example" data-query="Explain quantum computing applications">
+                    Quantum Computing
+                </button>
+            </div>
+        </div>
+
+        <form action="/analyze" method="post" class="analysis-form" id="queryForm">
+            <div class="form-group">
+                <label for="query" class="d-flex justify-content-between align-items-center">
+                    <span>Enter your query</span>
+                    <button type="button" class="help-icon"
+                            aria-label="Help"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            title="Provide a specific question or topic for comprehensive analysis">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                </label>
+                <div class="textarea-container">
+                    <textarea
+                        class="form-control"
+                        id="query"
+                        name="query"
+                        rows="4"
+                        maxlength="1000"
+                        required
+                        aria-describedby="queryHelp charCount"
+                        placeholder="Type your question or topic here..."></textarea>
+                    <div class="char-count" id="charCount">0/1000 characters</div>
+                </div>
+                <small id="queryHelp" class="form-text text-muted">
+                    For best results, be specific and provide context in your query.
+                </small>
+            </div>
+
+            <div class="submit-container">
+                <button type="submit" class="btn btn-primary" id="submitBtn" disabled>
+                    <span class="button-text">Analyze</span>
+                    <div class="button-loader d-none">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                </button>
+            </div>
+        </form>
+
+        <!-- Help Modal -->
+        <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="helpModalLabel">How to Use</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h6>Tips for Better Results:</h6>
+                        <ul>
+                            <li>Be specific in your questions</li>
+                            <li>Provide relevant context</li>
+                            <li>Keep queries under 1000 characters</li>
+                            <li>Use clear, simple language</li>
+                        </ul>
+                        <h6>Example Queries:</h6>
+                        <ul>
+                            <li>"What are the environmental impacts of electric vehicles?"</li>
+                            <li>"Compare machine learning frameworks for natural language processing"</li>
+                            <li>"Analyze the future trends in renewable energy adoption"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+</html>

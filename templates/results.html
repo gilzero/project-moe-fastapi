@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analysis Results</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <div class="container mt-5">
+    <h1>Analysis Results</h1>
+    <div id="errorContainer"></div>
+    <p><strong>Query:</strong> {{ query }}</p>
+    <a href="/" class="btn btn-secondary back-button">New Analysis</a>
+    <a href="#" class="back-to-top" aria-label="Scroll back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <div class="collapsible-section">
+      <div class="collapsible-header" data-toggle="collapse" data-target="#expertResponses" aria-expanded="true">
+        <h2><i class="fas fa-user-graduate"></i> Expert Responses</h2>
+        <i class="fas fa-chevron-up chevron-icon"></i>
+      </div>
+      <div id="expertResponses" class="collapsible-content show">
+        <div class="expert-card openai-card">
+          <div class="expert-card-header"><i class="fas fa-robot"></i> OpenAI</div>
+          <div class="expert-card-content">{{ markdown_to_html(results.OpenAI) | safe }}</div>
+        </div>
+        <div class="expert-card anthropic-card">
+          <div class="expert-card-header"><i class="fas fa-lightbulb"></i> Anthropic</div>
+          <div class="expert-card-content">{{ markdown_to_html(results.Anthropic) | safe }}</div>
+        </div>
+        <div class="expert-card xai-card">
+          <div class="expert-card-header"><i class="fas fa-brain"></i> xAI</div>
+          <div class="expert-card-content">{{ markdown_to_html(results.xAI) | safe }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="collapsible-section">
+      <div class="collapsible-header" data-toggle="collapse" data-target="#consensusAnalysis" aria-expanded="true">
+        <h2><i class="fas fa-chart-bar"></i> Consensus Analysis</h2>
+        <i class="fas fa-chevron-up chevron-icon"></i>
+      </div>
+      <div id="consensusAnalysis" class="collapsible-content show">
+        {% if results.Consensus_Analysis %}
+          {{ markdown_to_html(results.Consensus_Analysis) | safe }}
+        {% else %}
+          <div class="alert alert-warning">No consensus analysis available.</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="collapsible-section">
+      <div class="collapsible-header" data-toggle="collapse" data-target="#chartsMindmaps" aria-expanded="true">
+        <h2><i class="fas fa-map-marked"></i> Charts and Mindmaps</h2>
+        <i class="fas fa-chevron-up chevron-icon"></i>
+      </div>
+      <div id="chartsMindmaps" class="collapsible-content show">
+        {% if results.Charts_Mindmaps %}
+          {{ markdown_to_html(results.Charts_Mindmaps) | safe }}
+        {% else %}
+          <div class="alert alert-warning">No charts or mindmaps available.</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="collapsible-section">
+      <div class="collapsible-header" data-toggle="collapse" data-target="#analysisTools" aria-expanded="true">
+        <h2><i class="fas fa-tools"></i> Analysis Tools</h2>
+        <i class="fas fa-chevron-up chevron-icon"></i>
+      </div>
+      <div id="analysisTools" class="collapsible-content show">
+        {% if results.Analysis_Tools %}
+          {{ markdown_to_html(results.Analysis_Tools) | safe }}
+        {% else %}
+          <div class="alert alert-warning">No analysis tools available.</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="collapsible-section">
+      <div class="collapsible-header" data-toggle="collapse" data-target="#relatedQuestions" aria-expanded="true">
+        <h2><i class="fas fa-question-circle"></i> Related Questions</h2>
+        <i class="fas fa-chevron-up chevron-icon"></i>
+      </div>
+      <div id="relatedQuestions" class="collapsible-content show">
+        {% if results.Related_Questions %}
+          {{ markdown_to_html(results.Related_Questions) | safe }}
+        {% else %}
+          <div class="alert alert-warning">No related questions available.</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="collapsible-section">
+      <div class="collapsible-header" data-toggle="collapse" data-target="#metaAnalysis" aria-expanded="true">
+        <h2><i class="fas fa-brain"></i> Meta Analysis</h2>
+        <i class="fas fa-chevron-up chevron-icon"></i>
+      </div>
+      <div id="metaAnalysis" class="collapsible-content show">
+        {% if results.Meta_Analysis %}
+          {{ markdown_to_html(results.Meta_Analysis) | safe }}
+        {% else %}
+          <div class="alert alert-warning">No meta analysis available.</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="collapsible-section">
+      <div class="collapsible-header" data-toggle="collapse" data-target="#systemFlowchart" aria-expanded="true">
+        <h2><i class="fas fa-cogs"></i> System Flowchart</h2>
+        <i class="fas fa-chevron-up chevron-icon"></i>
+      </div>
+      <div id="systemFlowchart" class="collapsible-content show">
+        <div class="flowchart-container">
+          <div class="flowchart-step">
+            <span class="flowchart-step-text">User Input</span>
+          </div>
+          <div class="flowchart-step process">
+            <span class="flowchart-arrow">→</span>
+            <span class="flowchart-step-text">Gather Expert Responses</span>
+          </div>
+          <div class="flowchart-step process">
+            <span class="flowchart-arrow">→</span>
+            <span class="flowchart-step-text">Consensus Analysis</span>
+          </div>
+          <div class="flowchart-step process">
+            <span class="flowchart-arrow">→</span>
+            <span class="flowchart-step-text">Charts and Mindmaps</span>
+          </div>
+          <div class="flowchart-step process">
+            <span class="flowchart-arrow">→</span>
+            <span class="flowchart-step-text">Analysis Tools</span>
+          </div>
+          <div class="flowchart-step process">
+            <span class="flowchart-arrow">→</span>
+            <span class="flowchart-step-text">Related Questions</span>
+          </div>
+          <div class="flowchart-step process">
+            <span class="flowchart-arrow">→</span>
+            <span class="flowchart-step-text">Meta Analysis</span>
+          </div>
+          <div class="flowchart-step decision">
+            <span class="flowchart-arrow">→</span>
+            <span class="flowchart-step-text">Display Results</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    // Only initialize back-to-top functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const backToTopButton = document.querySelector('.back-to-top');
+      
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.add('visible');
+        } else {
+          backToTopButton.classList.remove('visible');
+        }
+      });
+
+      backToTopButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Handle collapsible sections with Bootstrap
+    $(document).ready(function() {
+      $('.collapsible-header').on('click', function() {
+        const content = $(this).next('.collapsible-content');
+        const icon = $(this).find('.chevron-icon');
+        
+        content.collapse('toggle');
+        
+        content.on('shown.bs.collapse', function() {
+          icon.css('transform', 'rotate(180deg)');
+          icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+        });
+        
+        content.on('hidden.bs.collapse', function() {
+          icon.css('transform', 'rotate(0)');
+          icon.removeClass('fa-chevron-up').addClass('fa-chevron-down');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
