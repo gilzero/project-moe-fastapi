@@ -1,8 +1,45 @@
 # Multi-Agent AI Analysis Platform
 
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
+
 ## Overview
 
 This project is a FastAPI-based web application designed to analyze user queries using a multi-agent system of Large Language Models (LLMs). It leverages the power of multiple expert LLMs to provide comprehensive and diverse insights. The application uses Jinja2 templates for dynamic HTML rendering and includes robust error handling and logging. This platform is ideal for complex analysis tasks where different perspectives and expertise are beneficial.
+
+## Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/gilzero/project-moe-fastapi.git
+
+# Set up environment and install dependencies
+python -m venv venv
+source venv/bin/activate  # or `venv\Scripts\activate` on Windows
+pip install -r requirements.txt
+
+# Set up your .env file with API keys
+cp .env.example .env
+# Edit .env with your API keys
+
+# Start the application
+uvicorn main:app --reload
+```
+
+Visit `http://127.0.0.1:8000` to start using the application.
+
+## Prerequisites
+
+- Python 3.9 or higher
+- pip (Python package installer)
+- API keys for:
+  - OpenAI
+  - Anthropic
+  - xAI
+  - Google (for certain features)
+- Git
+- Virtual environment tool (venv)
 
 ## Key Features
 
@@ -23,28 +60,30 @@ This project is a FastAPI-based web application designed to analyze user queries
 *   **Request ID Tracking:** Uses a custom middleware to track requests with unique IDs, aiding in debugging and monitoring.
 
 ## File Structure
-fastapi-web-app/
-├── main.py # Main entry point for the FastAPI application
-├── utils.py # Utility functions for API keys, workflow execution, and logging
-├── llm_factory.py # Factory class for creating LLM model instances
-├── expert.py # Classes for creating and managing expert LLMs
-├── models.py # Data models used in the application
-├── config_loader.py # Loads and validates configuration from YAML
-├── templates/ # Directory containing HTML templates
-│ └── index.html # Main page with the query form
-│ └── results.html # Page to display analysis results
-├── static/ # Directory for static files
-│ └── style.css # CSS styles for the application
-│ └── script.js # JavaScript for client-side logic
-├── tests/ # Directory for tests
-│ └── test_expert.py # Tests for expert creation
-│ └── test_llm_factory.py # Tests for LLM factory
-│ └── test_workflow.py # Tests for the workflow
-├── .gitignore # Specifies files to be ignored by Git
-├── requirements.txt # Lists project dependencies
-├── config.yaml # Configuration file for LLMs and prompts
-└── .env # Environment file for API keys
 
+```
+fastapi-web-app/
+├── main.py                # Main entry point for the FastAPI application
+├── utils.py              # Utility functions for API keys, workflow execution, and logging
+├── llm_factory.py        # Factory class for creating LLM model instances
+├── expert.py             # Classes for creating and managing expert LLMs
+├── models.py             # Data models used in the application
+├── config_loader.py      # Loads and validates configuration from YAML
+├── templates/            # Directory containing HTML templates
+│   ├── index.html       # Main page with the query form
+│   └── results.html     # Page to display analysis results
+├── static/              # Directory for static files
+│   ├── style.css       # CSS styles for the application
+│   └── script.js       # JavaScript for client-side logic
+├── tests/               # Directory for tests
+│   ├── test_expert.py      # Tests for expert creation
+│   ├── test_llm_factory.py # Tests for LLM factory
+│   └── test_workflow.py    # Tests for the workflow
+├── .gitignore           # Specifies files to be ignored by Git
+├── requirements.txt     # Lists project dependencies
+├── config.yaml         # Configuration file for LLMs and prompts
+└── .env                # Environment file for API keys
+```
 
 ## Installation
 
@@ -144,6 +183,75 @@ fastapi-web-app/
 
     Type your query into the input field and click the "Analyze" button. The application will process your query using the configured LLMs and display the results on a new page.
 
+## Development
+
+### Setting Up Development Environment
+
+1. Fork and clone the repository
+2. Create a new branch for your feature:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. Install development dependencies:
+   ```bash
+   pip install -r requirements-dev.txt
+   ```
+
+### Code Style
+
+- Follow PEP 8 guidelines
+- Use type hints for all function parameters and return values
+- Write docstrings for all functions and classes
+- Keep functions focused and single-purpose
+- Use meaningful variable and function names
+
+### Running Tests
+
+```bash
+# Run all tests
+pytest
+
+# Run tests with coverage report
+pytest --cov=. tests/
+
+# Run specific test file
+pytest tests/test_expert.py
+```
+
+### Pre-commit Checks
+
+Before committing your changes:
+1. Run the test suite
+2. Update documentation if needed
+3. Format code using black
+4. Run linting checks
+
+## Troubleshooting
+
+### Common Issues
+
+1. **API Key Issues**
+   - Ensure all API keys in `.env` are valid and not expired
+   - Check if you have sufficient credits/quota
+
+2. **Installation Problems**
+   - Make sure you're using Python 3.9+
+   - Try creating a fresh virtual environment
+   - Update pip: `pip install --upgrade pip`
+
+3. **Runtime Errors**
+   - Check the logs in `logs/app.log`
+   - Verify your `config.yaml` settings
+   - Ensure all required services are accessible
+
+### Debug Mode
+
+Enable debug mode by setting:
+```bash
+export DEBUG=True  # Linux/MacOS
+set DEBUG=True     # Windows
+```
+
 ## Contributing
 
 Contributions are welcome! If you have any ideas for improvements, bug fixes, or new features, please follow these steps:
@@ -156,3 +264,6 @@ Contributions are welcome! If you have any ideas for improvements, bug fixes, or
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
+
+---
+Last updated: 2025-01-14
